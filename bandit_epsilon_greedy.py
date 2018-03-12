@@ -11,7 +11,7 @@ class bandit():
         self.N = 0
 
     def pull(self):
-        return np.random.rand() + self.m
+        return np.random.randn() + self.m
 
     def update(self, x):
         self.N += 1
