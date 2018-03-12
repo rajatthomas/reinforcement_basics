@@ -44,6 +44,12 @@ if __name__ == "__main__":
     m1, m2, m3 = (1, 2, 3)
     N = 10000
     c_p01 = bandit_experiment(m1, m2, m3, N, 0.01)
-    #import pdb; pdb.set_trace()
-    plt.plot(range(N), c_p01)
+    c_p05 = bandit_experiment(m1, m2, m3, N, 0.05)
+    c_p1 = bandit_experiment(m1, m2, m3, N, 0.1)
+
+    plt.plot(c_p01, label='eps 0.01')
+    plt.plot(c_p05, label='eps 0.05')
+    plt.plot(c_p1, label='eps 0.1')
+    plt.legend()
+    plt.xscale('log')
     plt.show()
