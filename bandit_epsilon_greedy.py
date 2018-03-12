@@ -22,6 +22,7 @@ def bandit_experiment(m1, m2, m3, N, eps):
 
     bandits = [bandit(m1), bandit(m2), bandit(m3)]
 
+    data = np.empty(N)
     cumulative_mean = []
     for i in range(N):
         p = np.random.random()
@@ -31,8 +32,10 @@ def bandit_experiment(m1, m2, m3, N, eps):
             j = np.argmax([b.mean for b in bandits])
 
         x = bandits[j].pull()
-        cumulative_mean.append(bandits[j].update(x))
+        bandits[j].update(x)
+        data[i] = bandits[j].mean
 
+    cumulative_mean = np.cumsum(data)/(np.arange(N) + 1)
     return cumulative_mean
 
 
@@ -41,5 +44,6 @@ if __name__ == "__main__":
     m1, m2, m3 = (1, 2, 3)
     N = 10000
     c_p01 = bandit_experiment(m1, m2, m3, N, 0.01)
+    #import pdb; pdb.set_trace()
     plt.plot(range(N), c_p01)
     plt.show()
